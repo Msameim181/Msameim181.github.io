@@ -3063,6 +3063,12 @@ button:focus {
   background-position: 0 0, right 1.875rem top 1.5rem;
 }
 
+.review-item.certificate::before {
+  background: var(--color-gradient-soft)  !important;
+  background-repeat: no-repeat;
+  background-position: 0 0, right 1.875rem top 1.5rem;
+}
+
 @media only screen and (max-width: 580px) {
   .review-item {
     padding: 1rem;
