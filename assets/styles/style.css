@@ -3118,6 +3118,15 @@ button:focus {
   max-width: 5rem;
 }
 
+.review-icon-certificate {
+  background: url(../icons/icon-certificate.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: auto 0;
+  height: 3.5rem;
+  max-width: 5rem;
+}
+
 .review-date {
   color: var(--color-paragraph);
   display: block;
@@ -3158,6 +3167,9 @@ button:focus {
 
 @media only screen and (max-width: 580px) {
   .full-rewiew-con-avatar .review-icon-quote {
+    display: none;
+  }
+  .full-rewiew-con-avatar .review-icon-certificate {
     display: none;
   }
 }
