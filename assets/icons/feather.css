@@ -869,3 +869,9 @@
 .feathericon-zoom-out:before {
   content: "\ea19";
 }
+.custom-spotify:before {
+  /* display: inline-block; */
+  width: 30px; height: 30px;
+  background-image: url('spotify_icon.png');
+  /* background-repeat: no-repeat; */
+}
