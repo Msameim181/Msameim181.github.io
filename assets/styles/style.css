@@ -3297,12 +3297,21 @@ button:focus {
   top: -0.3125rem;
 }
 
+.timeline__company{
+  background: var(--color-gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 100;
+  font-size: smaller;
+}
+
 .timeline__period {
   background: var(--color-gradient-text);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 400;
+  font-weight: 200;
 }
 
 .timeline__description {
