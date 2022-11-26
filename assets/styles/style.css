@@ -57,6 +57,7 @@
   --color-gradient-border: linear-gradient(155deg, #FFDA6D 0%, rgba(255, 191, 96, 0) 50%);
   --color-gradient-border-gray: linear-gradient(135deg, #404040 0%, rgba(64, 64, 64, 0) 48.44%);
   --color-gradient-gray: linear-gradient(137.84deg, #3F3F40 2.69%, #303030 93.75%);
+  --color-gradient-line: linear-gradient(135deg, rgba(255, 189, 94, 0) 0%, rgba(255, 218, 109, 0.418) 39.86%), #202021;
   --color-gradient-icon: linear-gradient(135deg, rgba(255, 218, 109, 0.25) 0%, rgba(255, 189, 94, 0) 59.86%), #202021;
   --color-btn: linear-gradient(135deg, rgba(45, 45, 46, 0.25) 0%, rgba(27, 27, 28, 0) 100%), #202021;
   --box-shadow-24: -4px 8px 24px rgba(0, 0, 0, 0.25);
@@ -713,6 +714,30 @@ select,
 
 .progress .progress-text {
   margin-bottom: 0.5rem;
+  display: inline-block;
+}
+.progress .progress-exp {
+  /* be inline format */
+  /* display: inline-block; */
+  /* be inline format */
+  float: right;
+}
+
+.skill-line {
+  /* make a skin line */
+  background: var(--color-gradient-line);
+  /* make a skin line */
+  height: 0.05rem;
+  border-radius: var(--radius-16);
+  overflow: hidden;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  width: 60%;
+
+}
+
+.progress.other-skills {
+  margin-bottom: 0.0rem !important;
 }
 
 .progress .progress-text span {
