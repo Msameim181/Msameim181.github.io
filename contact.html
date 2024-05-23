@@ -197,19 +197,19 @@
 			event.preventDefault();
 		
 			// Get form fields
-			var fullName = document.getElementById('full-name').value;
-			var email = document.getElementById('email').value;
-			var message = document.getElementById('message').value;
+			var nameContact = document.getElementById('nameContact').value;
+			var emailContact = document.getElementById('emailContact').value;
+			var messageContact = document.getElementById('messageContact').value;
 		
 			// Create form data
 			var formData = {
-				full_name: fullName,
-				email: email,
-				message: message
+				full_name: nameContact,
+				email: emailContact,
+				message: messageContact
 			};
 		
 			// Send POST request to your server
-			fetch('http://65.109.193.167:6549/contact/', {
+			fetch('http://me.simplesightsolutions.com/contact/', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
