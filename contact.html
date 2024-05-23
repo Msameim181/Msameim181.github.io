@@ -192,6 +192,37 @@
 
     <!-- Mapbox init -->
 	<script src="assets/js/mapbox.init.js"></script>
+	<script>
+		document.getElementById('contact-form').addEventListener('submit', function(event) {
+			event.preventDefault();
+		
+			// Get form fields
+			var fullName = document.getElementById('full-name').value;
+			var email = document.getElementById('email').value;
+			var message = document.getElementById('message').value;
+		
+			// Create form data
+			var formData = {
+				full_name: fullName,
+				email: email,
+				message: message
+			};
+		
+			// Send POST request to your server
+			fetch('http://65.109.193.167:6549/contact/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			})
+			.then(response => response.json())
+			.then(data => console.log(data))
+			.catch((error) => {
+			  console.error('Error:', error);
+			});
+		});
+		</script>
 
 </body>
 
