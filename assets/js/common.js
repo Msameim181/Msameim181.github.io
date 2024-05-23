@@ -449,15 +449,13 @@ $(document).ready(function() {
     -------------------------------------------------------------------*/
 
     $("#contact-form").validator().on("submit", function (event) {
-        console.log('submit');
-        console.log(event.isDefaultPrevented());
         if (event.isDefaultPrevented()) {
-            console.log('error');
             formError();
             submitMSG(false, "Please fill in the form...");
         } else {
             event.preventDefault();
             submitForm();
+            $("#contact-form")[0].reset();
         }
     });
 
@@ -481,10 +479,12 @@ $(document).ready(function() {
             data: JSON.stringify(formData),
             success : function(text){
                 if (text == "success"){
+                    console.log(text);
                     formSuccess();
                 } else {
+                    console.log(text);
                     formError();
-                    submitMSG(false,text);
+                    submitMSG(false, text);
                 }
             }
         });
@@ -502,13 +502,13 @@ $(document).ready(function() {
     }  
   
     function submitMSG(valid, msg){
-		var msgClasses;
-        if(valid){
-            msgClasses = "validation-success";
-        } else {
-           msgClasses = "validation-danger";
-        }
-        $("#validator-contact").removeClass().addClass(msgClasses).text(msg);
+        var msgClasses;
+            if(valid){
+                msgClasses = "validation-success";
+            } else {
+              msgClasses = "validation-danger";
+            }
+            $("#validator-contact").removeClass().addClass(msgClasses).text(msg);
     }
 
 
