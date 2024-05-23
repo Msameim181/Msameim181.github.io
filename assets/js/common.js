@@ -449,7 +449,10 @@ $(document).ready(function() {
     -------------------------------------------------------------------*/
 
     $("#contact-form").validator().on("submit", function (event) {
+        console.log('submit');
+        console.log(event.isDefaultPrevented());
         if (event.isDefaultPrevented()) {
+            console.log('error');
             formError();
             submitMSG(false, "Please fill in the form...");
         } else {
@@ -462,13 +465,20 @@ $(document).ready(function() {
         var name = $("#nameContact").val(),
             email = $("#emailContact").val(),
             message = $("#messageContact").val();
-			
-        var url = "assets/php/form-contact.php";
+        
+        var formData = {
+            full_name: name,
+            email: email,
+            message: message
+        };
+
+        var url = "https://me.simplesightsolutions.com/contact/";
 		
         $.ajax({
             type: "POST",
             url: url,
-            data: "name=" + name + "&email=" + email + "&message=" + message,
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
             success : function(text){
                 if (text == "success"){
                     formSuccess();

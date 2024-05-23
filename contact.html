@@ -192,37 +192,6 @@
 
     <!-- Mapbox init -->
 	<script src="assets/js/mapbox.init.js"></script>
-	<script>
-		document.getElementById('contact-form').addEventListener('submit', function(event) {
-			event.preventDefault();
-		
-			// Get form fields
-			var nameContact = document.getElementById('nameContact').value;
-			var emailContact = document.getElementById('emailContact').value;
-			var messageContact = document.getElementById('messageContact').value;
-		
-			// Create form data
-			var formData = {
-				full_name: nameContact,
-				email: emailContact,
-				message: messageContact
-			};
-		
-			// Send POST request to your server
-			fetch('http://me.simplesightsolutions.com/contact/', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(formData)
-			})
-			.then(response => response.json())
-			.then(data => console.log(data))
-			.catch((error) => {
-			  console.error('Error:', error);
-			});
-		});
-		</script>
 
 </body>
 
