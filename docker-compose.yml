@@ -1,0 +1,17 @@
+version: '3.7'
+
+
+services:
+  resume_app_service:
+    build:
+      context: .
+      dockerfile: dockerfile
+    restart: always
+    container_name: resume_app
+    ports:
+      - "6549:9000"
+    volumes:
+      - ./:/app/
+    command: >
+      bash -c "python3 server.py"
+
