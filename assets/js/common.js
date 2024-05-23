@@ -479,10 +479,8 @@ $(document).ready(function() {
             data: JSON.stringify(formData),
             success : function(text){
                 if (text == "success"){
-                    console.log(text);
                     formSuccess();
                 } else {
-                    console.log(text);
                     formError();
                     submitMSG(false, text);
                 }
