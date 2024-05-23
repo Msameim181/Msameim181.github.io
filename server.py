@@ -49,8 +49,6 @@ class ContactForm(BaseModel):
 
 @app.post("/contact/")
 async def create_contact_form(form: ContactForm, request: Request):
-    # print the origin source of the request
-    print(request.client.host)
     try:
         session.execute(
             table.insert().values(
@@ -76,9 +74,7 @@ async def create_contact_form(form: ContactForm, request: Request):
             status_code=500, detail="Message saved. Could not send message to Admin."
         )
 
-    return {
-        "message": "Contact form submitted successfully! Thank you for reaching out."
-    }
+    return "success"
 
 
 if __name__ == "__main__":
