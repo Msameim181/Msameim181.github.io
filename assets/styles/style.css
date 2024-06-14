@@ -3369,6 +3369,22 @@ button:focus {
   }
 }
 
+span.golding_details {
+  background: var(--color-gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+u.gold {
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 0.5%;
+}
+
 /* -----------------------------------------------------------------
     - Other
 ----------------------------------------------------------------- */
