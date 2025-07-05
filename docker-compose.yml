@@ -8,6 +8,8 @@ services:
       dockerfile: dockerfile
     restart: always
     container_name: resume_app
+    env_file:
+      - .env
     ports:
       - "6549:9000"
     volumes:
