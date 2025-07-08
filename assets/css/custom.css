@@ -1,0 +1,17 @@
+/* Custom CSS adjustments */
+
+/* Reduce gap around "Relevant Courses" */
+.education-item p {
+  margin-bottom: 0.5rem;
+}
+
+/* Make Relevant Courses section more compact */
+.education-item p:has(i.icon-arrow-right) {
+  margin-bottom: 0.3rem;
+}
+
+.resume-section p:has(i.contact-icon) {
+  margin-bottom: 0.3rem;
+}
+
+/* Add this to your HTML head section after the main style.css link */
