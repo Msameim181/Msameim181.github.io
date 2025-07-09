@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Practical insights on deploying machine learning models in production environments and maintaining them efficiently">
+  <meta name="keywords" content="machine learning, MLOps, deployment, production, model monitoring, ML engineering">
+  <meta name="author" content="Mohammad Mahdi Samei">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://msameim181.github.io/blog/first-post.html">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/assets/css/all.min.css">
+  <script src="/assets/js/all.min.js" defer></script>
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://msameim181.github.io/blog/first-post.html">
+  <meta property="og:title" content="Machine Learning in Production - Mohammad Mahdi Samei">
+  <meta property="og:description" content="Practical insights on deploying machine learning models in production environments and maintaining them efficiently">
+  <meta property="og:image" content="https://msameim181.github.io/assets/images/blog/ml-ops-cover.jpg">
+  <meta property="article:published_time" content="2025-07-07T12:00:00Z">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://msameim181.github.io/blog/first-post.html">
+  <meta property="twitter:title" content="Machine Learning in Production - Mohammad Mahdi Samei">
+  <meta property="twitter:description" content="Practical insights on deploying machine learning models in production environments and maintaining them efficiently">
+  <meta property="twitter:image" content="https://msameim181.github.io/assets/images/blog/ml-ops-cover.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <title>Machine Learning in Production - Mohammad Mahdi Samei</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="/">Mohammad Mahdi Samei</a>
+      </div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog/" aria-current="section">Blog</a></li>
+        <li><a href="/resume.html">Resume</a></li>
+        <li><a href="/projects.html">Projects</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <div class="blog-header-nav">
+      <a href="/blog/" class="all-posts-link">← All Posts</a>
+    </div>
+    
+    <article class="blog-post">
+      <header class="blog-post-header">
+        <h1>Machine Learning in Production</h1>
+        <div class="blog-meta">
+          <time datetime="2025-07-07">July 7, 2025</time> • 
+          <span class="reading-time" title="Estimated reading time">12 min read</span> • 
+          <span class="copy-url" title="Copy URL to clipboard"><i class="fa-regular fa-copy"></i> Copy URL</span> • 
+          <span class="share-label">Share:</span>
+          <a href="https://twitter.com/intent/tweet?url=https://msameim181.github.io/blog/first-post.html&text=Machine Learning in Production" target="_blank" rel="noopener noreferrer" title="Share on Twitter" class="share-link">Twitter</a>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://msameim181.github.io/blog/first-post.html&title=Machine Learning in Production" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn" class="share-link">LinkedIn</a>
+        </div>
+      </header>
+      
+      <div class="featured-image">
+        <img src="/assets/images/ales-krivec-GfLUxuWZg0w-unsplash.jpg" alt="Machine Learning Operations Pipeline">
+        <div class="image-attribution">Image: Mountains landscape | Photo by Ales Krivec on Unsplash</div>
+      </div>
+      
+      <div class="blog-content">
+        <p>
+          Deploying machine learning models in production environments presents unique challenges that extend beyond the 
+          traditional software development lifecycle. In this post, I'll share practical insights from my experience 
+          taking ML models from experimentation to reliable production systems, focusing on best practices and common pitfalls<a href="#footnote-1" class="footnote-ref" id="ref-1"><sup>1</sup></a>.
+        </p>
+        
+        <h2>The ML Production Gap</h2>
+        <p>
+          There's a significant gap between developing a machine learning model in a Jupyter notebook and 
+          deploying it as a production system that can reliably serve predictions at scale. This gap involves 
+          challenges in data pipelines, model serving, monitoring, and governance.
+        </p>
+        <p>
+          Many data scientists focus on model accuracy during development but underestimate the operational 
+          aspects of keeping models running efficiently in production. The reality is that ML engineering requires
+          a different mindset than ML research or development.
+        </p>
+        
+        <div class="separator"></div>
+        
+        <h2>Building Reliable Data Pipelines</h2>
+        <p>
+          Production ML systems depend on reliable data pipelines. Your model is only as good as the data it receives,
+          and in production environments, data quality issues become immediately apparent and impactful.
+        </p>
+        <p>
+          Here's a simple example of a data validation check you might implement in your pipeline:
+        </p>
+        <pre><code>import pandas as pd
+import numpy as np
+from great_expectations.dataset import PandasDataset
+
+def validate_input_data(df):
+    # Convert to GE dataset
+    ge_df = PandasDataset(df)
+    
+    # Define expectations
+    ge_df.expect_column_values_to_not_be_null("user_id")
+    ge_df.expect_column_values_to_be_between("age", min_value=0, max_value=120)
+    ge_df.expect_column_values_to_be_in_set("country", ["US", "CA", "UK", "AU"])
+    
+    # Get validation results
+    results = ge_df.validate()
+    return results["success"], results</code></pre>
+        
+        <p>
+          You can learn more about data validation practices in the <a href="https://greatexpectations.io/" target="_blank" rel="noopener">Great Expectations documentation <i class="fa-solid fa-arrow-up-right-from-square"></i></a>.
+        </p>
+        
+        <h2>Model Serving Strategies</h2>
+        <p>
+          How you serve your model can significantly impact performance, cost, and maintenance requirements.
+          Here are the main approaches to consider:
+        </p>
+        <ul>
+          <li><strong>Real-time prediction APIs:</strong> Low-latency REST or gRPC endpoints for immediate predictions</li>
+          <li><strong>Batch prediction:</strong> Processing large volumes of data at scheduled intervals</li>
+          <li><strong>Edge deployment:</strong> Running models directly on edge devices for offline capabilities</li>
+          <li><strong>Hybrid approaches:</strong> Combining methods based on use case requirements</li>
+        </ul>
+        
+        <p>The API endpoint configuration might look something like: <span class="copyable" data-copy="https://api.example.com/v1/predict">https://api.example.com/v1/predict</span></p>
+        
+        <h2>Monitoring and Observability</h2>
+        <p>
+          Unlike traditional software, ML systems can silently degrade as data patterns change over time.
+          Comprehensive monitoring is essential for detecting performance issues before they affect users<a href="#footnote-2" class="footnote-ref" id="ref-2"><sup>2</sup></a>.
+        </p>
+        <p>
+          Key metrics to monitor include:
+        </p>
+        <ul>
+          <li>Model performance metrics (accuracy, F1, etc.) on validation data</li>
+          <li>Prediction distribution shifts</li>
+          <li>Feature distribution shifts</li>
+          <li>System metrics (latency, throughput, resource utilization)</li>
+          <li>Business impact metrics tied to model outcomes</li>
+        </ul>
+        
+        <h2>Conclusion</h2>
+        <p>
+          Successfully deploying machine learning in production requires bridging the gap between data science and 
+          software engineering practices. By focusing on robust data pipelines, appropriate serving strategies,
+          comprehensive monitoring, and gradual deployment, you can build ML systems that deliver reliable value in 
+          production. Remember that the real work often begins after the model is deployed, as maintaining and improving 
+          ML systems is an ongoing process.
+        </p>
+        
+        <div class="copyable-text">
+          <pre><code>// Example monitoring setup for ML model in production
+class MLModelMonitor {
+  constructor(modelName, metrics = ['accuracy', 'latency', 'drift']) {
+    this.modelName = modelName;
+    this.metrics = metrics;
+    this.alertThresholds = {
+      accuracy: 0.05,  // Alert if accuracy drops by 5%
+      latency: 100,    // Alert if latency increases by 100ms
+      drift: 0.1       // Alert if distribution drift > 0.1
+    };
+  }
+
+  async checkHealth() {
+    const currentMetrics = await this.gatherMetrics();
+    const baselineMetrics = await this.getBaseline();
+    
+    return this.metrics.map(metric => {
+      const delta = Math.abs(currentMetrics[metric] - baselineMetrics[metric]);
+      const status = delta > this.alertThresholds[metric] ? 'alert' : 'healthy';
+      
+      return {
+        metric,
+        status,
+        current: currentMetrics[metric],
+        baseline: baselineMetrics[metric],
+        delta
+      };
+    });
+  }
+}</code></pre>
+          <!-- <button class="copy-btn" aria-label="Copy code">Copy code</button> -->
+        </div>
+        
+        <!-- <div class="blog-separator">* * *</div> -->
+        
+        <div class="blog-components">
+          <h3>Blog Components Demo</h3>
+          <p>This section demonstrates various blog components available:</p>
+          
+          <h4>Images with Attribution</h4>
+          <div class="featured-image">
+            <img src="/assets/images/ales-krivec-MbwSUM8dtGA-unsplash.jpg" alt="Mountain landscape with mist">
+            <div class="image-attribution">Image: Misty mountains | Photo by Ales Krivec on Unsplash</div>
+          </div>
+          
+          <h4>Copyable Text</h4>
+          <div class="copyable-text">
+            <pre><code>function getReadingTime(text) {
+  const wordsPerMinute = 200;
+  const words = text.split(/\s+/).length;
+  return Math.ceil(words / wordsPerMinute);
+}</code></pre>
+            <button class="copy-btn" aria-label="Copy code">Copy code</button>
+          </div>
+          
+          <h4>Separator</h4>
+          <div class="separator"></div>
+          
+          <h4>Code Block with Copy Button</h4>
+          <pre><code>def hello_world():
+    print("Hello, world!")</code></pre>
+          
+          <h4>Copyable Text</h4>
+          <p>This is a <span class="copyable" data-copy="custom text to copy">copyable text</span> example.</p>
+          
+          <h4>Link with External Icon</h4>
+          <p><a href="https://example.com" target="_blank" rel="noopener">Example link <i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
+          
+          <h4>Footnote Reference</h4>
+          <p>This text has a footnote<a href="#footnote-3" class="footnote-ref" id="ref-3"><sup>3</sup></a>.</p>
+        </div>
+      </div>
+      
+      <div class="blog-separator">* * *</div>
+        
+      <section class="footnotes">
+        <h2>Footnotes</h2>
+        <ol>
+          <li id="footnote-1">
+            This post is based on my experience deploying ML models at various scales, from small startups to enterprise environments.
+            <a href="#ref-1" class="footnote-backref"><i class="fa-regular fa-arrow-turn-up"></i></a>
+          </li>
+          <li id="footnote-2">
+            For more details on monitoring ML systems, see Google's paper on <a href="https://research.google/pubs/pub46555/" target="_blank" rel="noopener">Hidden Technical Debt in Machine Learning Systems <i class="fa-solid fa-arrow-up-right-from-square"></i></a>.
+            <a href="#ref-2" class="footnote-backref"><i class="fa-regular fa-arrow-turn-up"></i></a>
+          </li>
+          <li id="footnote-3">
+            This is an example footnote for the demo section.
+            <a href="#ref-3" class="footnote-backref"><i class="fa-regular fa-arrow-turn-up"></i></a>
+          </li>
+        </ol>
+      </section>
+    </article>
+    
+    <section class="blog-navigation">
+      <div class="blog-nav-links">
+        <div class="blog-nav-prev">
+          <!-- No previous post for the first one -->
+        </div>
+        <div class="blog-nav-home">
+          <a href="/blog/">All Posts</a>
+        </div>
+        <div class="blog-nav-next">
+          <a href="/blog/deep-learning-in-medical.html">Next Post: Deep Learning for Medical Image Analysis →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div class="container">
+      <ul class="social-links">
+        <li><a href="mailto:9259samei@gmail.com" aria-label="Email">Email</a></li>
+        <li><a href="https://github.com/Msameim181/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a></li>
+        <li><a href="https://linkedin.com/in/msameim181/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a></li>
+      </ul>
+      <p class="text-center mt-1">
+        &copy; <span id="copyright-year">2020</span> Mohammad Mahdi Samei. All rights reserved.
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Theme Toggle Button -->
+  <div class="theme-toggle" aria-label="Toggle dark/light mode">
+    <div class="theme-toggle-icon">
+      <span class="sun-icon">☀️</span>
+      <span class="moon-icon">🌙</span>
+    </div>
+  </div>
+  
+  <script src="/assets/js/script.js"></script>
+</body>
+</html>
