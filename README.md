@@ -29,9 +29,9 @@ A clean, minimalist personal website built with pure HTML, CSS, and minimal Java
 - `resume.html` - Professional experience, education, skills, and certificates
 - `projects.html` - Portfolio of technical projects
 - `blog/index.html` - Blog listing page
-- `blog/first-post.html` - Machine Learning in Production article
-- `blog/another-post.html` - Deep Learning for Medical Image Analysis article
+- `blog/deep-learning-in-medical.html` - Deep Learning for Medical Image Analysis article
 - `blog/ethics-in-ai.html` - Ethics in AI article
+- `blog/backlog/sample.html` - Machine Learning in Production article
 - `contact.html` - Contact information and form
 
 ## Development
@@ -74,4 +74,4 @@ The Vercel deployment is available at: `https://msameim181.vercel.app` (customiz
 
 ## License
 
-Copyright © 2025 Mohammad Mahdi Samei. All rights reserved.
+Copyright © 2020 Mohammad Mahdi Samei. All rights reserved.
