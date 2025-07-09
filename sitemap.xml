@@ -31,13 +31,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://msameim181.github.io/blog/first-post.html</loc>
-    <lastmod>2025-07-07</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://msameim181.github.io/blog/another-post.html</loc>
+    <loc>https://msameim181.github.io/blog/deep-learning-in-medical.html</loc>
     <lastmod>2025-07-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
