@@ -527,6 +527,7 @@ footer {
 [data-theme="dark"] .icon-envelope:before,
 [data-theme="dark"] .icon-linkedin:before,
 [data-theme="dark"] .icon-github:before,
+[data-theme="dark"] .icon-location:before,
 [data-theme="dark"] .icon-telegram:before {
   filter: invert(70%) sepia(19%) saturate(176%) hue-rotate(169deg) brightness(94%) contrast(92%);
 }
