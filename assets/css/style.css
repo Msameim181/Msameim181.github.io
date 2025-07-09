@@ -468,30 +468,67 @@ footer {
   margin-right: 0.15rem;
 }
 
-.icon-envelope:before {
-  content: "✉️";
-  margin-right: 0.15rem;
+/* SVG Icons */
+.icon {
+  display: inline-flex;
+  align-items: center;
 }
 
-.icon-location:before {
+.icon svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5rem;
+  fill: currentColor;
+}
+
+/* Icon base styles */
+.icon-envelope:before,
+.icon-linkedin:before,
+.icon-github:before,
+.icon-location:before,
+.icon-telegram:before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  vertical-align: middle;
+}
+
+.icon-envelope:before {
+  background-image: url('/assets/images/icons/email.svg');
+}
+
+/* .icon-location:before {
   font-style: normal;
   content: "📍";
   margin-right: 0.15rem;
+} */
+.icon-location:before {
+  background-image: url('/assets/images/icons/earth.svg');
 }
 
 .icon-linkedin:before {
-  content: "🔗";
-  margin-right: 0.15rem;
+  background-image: url('/assets/images/icons/linkedin.svg');
 }
 
 .icon-github:before {
-  content: "👨‍💻";
-  margin-right: 0.15rem;
+  background-image: url('/assets/images/icons/github.svg');
 }
 
 .icon-telegram:before {
-  content: "📱";
-  margin-right: 0.25rem;
+  background-image: url('/assets/images/icons/telegram.svg');
+}
+
+/* Dark mode SVG color adjustment */
+[data-theme="dark"] .icon-envelope:before,
+[data-theme="dark"] .icon-linkedin:before,
+[data-theme="dark"] .icon-github:before,
+[data-theme="dark"] .icon-telegram:before {
+  filter: invert(70%) sepia(19%) saturate(176%) hue-rotate(169deg) brightness(94%) contrast(92%);
 }
 
 .icon-instagram:before {
