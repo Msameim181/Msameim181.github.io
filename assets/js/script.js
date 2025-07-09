@@ -4,6 +4,41 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Dark Mode Toggle Functionality
+  const themeToggle = document.querySelector('.theme-toggle');
+  const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  // Check for saved theme preference or use prefers-color-scheme
+  const savedTheme = localStorage.getItem('theme');
+  
+  // Apply the correct theme
+  if (savedTheme === 'dark') {
+    document.body.setAttribute('data-theme', 'dark');
+    if (themeToggle) themeToggle.setAttribute('data-theme', 'dark');
+  } else if (savedTheme === 'light') {
+    document.body.setAttribute('data-theme', 'light');
+    if (themeToggle) themeToggle.setAttribute('data-theme', 'light');
+  } else if (prefersDarkMode) {
+    document.body.setAttribute('data-theme', 'dark');
+    if (themeToggle) themeToggle.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.body.setAttribute('data-theme', 'light');
+    if (themeToggle) themeToggle.setAttribute('data-theme', 'light');
+    localStorage.setItem('theme', 'light');
+  }
+  
+  // Theme Toggle Event Listener
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = document.body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      document.body.setAttribute('data-theme', newTheme);
+      themeToggle.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  }
   // Handle fallback for Font Awesome icons if needed
   if (typeof FontAwesome === 'undefined') {
     document.querySelectorAll('.fa-arrow-up-right-from-square').forEach(icon => {

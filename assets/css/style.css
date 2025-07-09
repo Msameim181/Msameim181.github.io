@@ -3,6 +3,42 @@
  * Pure CSS3 with no external dependencies
  */
 
+:root {
+  /* Light Mode (Default) */
+  --background-color: #fdfdfc;
+  --text-color: #333;
+  --header-color: #111110;
+  --border-color: #eee;
+  --primary-color: #c8054b;
+  --primary-color-hover: #ad043f;
+  --primary-highlight: #c8054b;
+  --secondary-color: #047a76;
+  --white: #fdfdfc;
+  --black: #111110;
+  --grey: #9198a1;
+  --badge-bg: #f5f5f5;
+  --badge-text: #555;
+  --code-bg: #f7f7f7;
+  --card-bg: #f9f9f9;
+  --card-border: #eee;
+}
+
+[data-theme="dark"] {
+  /* Dark Mode */
+  --background-color: #111110;
+  --text-color: #9198a1;
+  --header-color: #fdfdfc;
+  --border-color: #31312e;
+  --primary-color: #c8054b;
+  --primary-color-hover: #ad043f;
+  --secondary-color: #047a76;
+  --badge-bg: #1d1d1c;
+  --badge-text: #9198a1;
+  --code-bg: #1a1a19;
+  --card-bg: #1a1a19;
+  --card-border: #31312e;
+}
+
 /* Reset and Base Styles */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -18,11 +54,12 @@ html {
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   line-height: 1.6;
-  color: #333;
-  background-color: #fff;
+  color: var(--text-color);
+  background-color: var(--background-color);
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 /* Typography */
@@ -30,6 +67,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 1.25rem 0 0.75rem;
   line-height: 1.2;
   font-weight: 600;
+  color: var(--header-color);
 }
 
 h1 { font-size: 1.75rem; }
@@ -62,20 +100,20 @@ p, ul, ol {
 }
 
 a {
-  color: #0066cc;
+  color: var(--primary-color);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover, a:focus {
-  color: #004080;
+  color: var(--primary-color-hover);
   text-decoration: underline;
 }
 
 /* Layout Components */
 header {
   padding: 1.5rem 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
 }
 
 nav {
@@ -195,7 +233,7 @@ section {
 .home-featured-section {
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
 }
 
 @media (min-width: 576px) {
@@ -263,9 +301,9 @@ section {
 
 footer {
   padding: 1.5rem 0;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
   font-size: 0.9rem;
-  color: #666;
+  color: var(--text-color);
 }
 
 /* Responsive main content for different screen sizes */
@@ -329,9 +367,9 @@ footer {
   padding: 0.25rem 0.75rem;
   font-size: 0.85rem;
   font-weight: 500;
-  background-color: #f5f5f5;
+  background-color: var(--badge-bg);
   border-radius: 1rem;
-  color: #555;
+  color: var(--badge-text);
 }
 
 .resume-section {
@@ -346,12 +384,12 @@ footer {
 .education-item, .job {
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .education-item h3, .job h3 {
   margin-bottom: 0.5rem;
-  color: #333;
+  color: var(--header-color);
   font-size: 1.25rem;
 }
 
@@ -360,7 +398,7 @@ footer {
 }
 
 .job-meta {
-  color: #666;
+  color: var(--text-color);
   font-style: italic;
   font-size: 0.9rem;
   margin-bottom: 1rem;
@@ -369,7 +407,7 @@ footer {
 .work-type {
   display: inline-block;
   font-weight: 500;
-  color: #555;
+  color: var(--text-color);
 }
 
 .job-description p {
@@ -386,33 +424,33 @@ footer {
 
 .highlight {
   font-weight: 600;
-  color: #0066cc;
+  color: var(--primary-color);
 }
 
 .sub-role {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   padding-left: 1rem;
-  border-left: 2px solid #eee;
+  border-left: 2px solid var(--border-color);
 }
 
 .sub-role h4 {
   margin-top: 0;
   margin-bottom: 0.25rem;
   font-size: 1.1rem;
-  color: #444;
+  color: var(--header-color);
 }
 
 .sub-role-meta {
   font-size: 0.85rem;
   font-style: italic;
-  color: #666;
+  color: var(--text-color);
   margin-bottom: 0.75rem;
 }
 
 .timeline {
   font-style: italic; 
-  color: #666;
+  color: var(--text-color);
   font-size: 0.9rem;
 }
 
@@ -481,25 +519,25 @@ footer {
 
 .skill-years {
   font-size: 0.85rem;
-  color: #666;
+  color: var(--text-color);
 }
 
 .skill-bar {
   height: 8px;
-  background-color: #f0f0f0;
+  background-color: var(--border-color);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .skill-progress {
   height: 100%;
-  background-color: #0066cc;
+  background-color: var(--primary-color);
   border-radius: 4px;
 }
 
 .skill-divider {
   height: 1px;
-  background-color: #eee;
+  background-color: var(--border-color);
   margin: 1.5rem 0;
 }
 
@@ -528,7 +566,7 @@ footer {
 }
 
 .language-level {
-  color: #666;
+  color: var(--text-color);
   font-size: 0.9rem;
 }
 
@@ -541,9 +579,9 @@ footer {
 
 .certificate-card {
   padding: 1.25rem;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: var(--card-bg);
 }
 
 .certificate-card h3 {
@@ -553,7 +591,7 @@ footer {
 }
 
 .certificate-date {
-  color: #666;
+  color: var(--text-color);
   font-size: 0.85rem;
   font-style: italic;
   margin-bottom: 1rem;
@@ -582,9 +620,9 @@ footer {
 
 .contact-method {
   padding: 1rem;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  background-color: #f9f9f9;
+  background-color: var(--card-bg);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -609,7 +647,7 @@ footer {
 }
 
 .contact-method a {
-  color: #0066cc;
+  color: var(--primary-color);
   text-decoration: none;
 }
 
@@ -637,10 +675,12 @@ footer {
 .form-group textarea {
   width: 100%;
   padding: 0.65rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   font-family: inherit;
   font-size: 0.95rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .form-group textarea {
@@ -651,8 +691,8 @@ footer {
 .btn {
   display: inline-block;
   padding: 0.65rem 1.25rem;
-  background-color: #0066cc;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--white);
   border: none;
   border-radius: 4px;
   font-size: 0.95rem;
@@ -662,9 +702,9 @@ footer {
 }
 
 .btn:hover {
-  background-color: #004d99;
+  background-color: var(--primary-color-hover);
   text-decoration: none;
-  color: #fff;
+  color: var(--white);
 }
 
 @media (min-width: 576px) {
@@ -752,7 +792,7 @@ footer {
 .project-card {
   padding: 1rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
   border-radius: 4px;
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -779,8 +819,9 @@ footer {
 .project-tag {
   font-size: 0.75rem;
   padding: 0.15rem 0.4rem;
-  background-color: #f5f5f5;
+  background-color: var(--badge-bg);
   border-radius: 3px;
+  color: var(--badge-text);
 }
 
 .project-links {
@@ -791,7 +832,7 @@ footer {
   display: inline-block;
   margin-right: 1rem;
   font-weight: 500;
-  color: #0066cc;
+  color: var(--primary-color);
 }
 
 @media (min-width: 576px) {
@@ -850,7 +891,7 @@ footer {
   flex-direction: column;
   gap: 1rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .blog-item:last-child .blog-card {
@@ -942,7 +983,7 @@ footer {
 
 .blog-meta {
   font-size: 0.8rem;
-  color: #666;
+  color: var(--text-color);
   margin-bottom: 1rem;
   display: flex;
   flex-wrap: wrap;
@@ -973,7 +1014,7 @@ footer {
 
 .blog-meta .share-link {
   margin: 0 0.5rem 0 0;
-  color: #0066cc;
+  color: var(--primary-color);
 }
 
 .blog-meta .share-link:hover {
@@ -988,7 +1029,7 @@ footer {
 }
 
 .copy-url:hover {
-  color: #0066cc;
+  color: var(--primary-color);
 }
 
 /* Enhanced Blog Styles */
@@ -1075,13 +1116,13 @@ footer {
 .blog-back-link {
   display: block;
   margin-bottom: 2rem;
-  color: #666;
+  color: var(--text-color);
   text-decoration: none;
   font-size: 0.9rem;
 }
 
 .blog-back-link:hover {
-  color: #0066cc;
+  color: var(--primary-color);
 }
 
 .blog-back-link::before {
@@ -1099,7 +1140,7 @@ footer {
   display: inline-block;
   padding: 0.25rem 0;
   font-size: 0.85rem;
-  color: #666;
+  color: var(--text-color);
 }
 
 @media (min-width: 576px) {
@@ -1129,11 +1170,11 @@ footer {
   flex-wrap: wrap;
   gap: 1.5rem;
   padding: 0.75rem 0;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   margin: 1rem 0 2rem;
   font-size: 0.85rem;
-  color: #666;
+  color: var(--text-color);
 }
 
 .blog-reading-time, .blog-updated, .blog-copy-link {
@@ -1161,7 +1202,7 @@ footer {
 }
 
 .blog-copy-link:hover {
-  color: #0066cc;
+  color: var(--primary-color);
 }
 
 .featured-image {
@@ -1179,7 +1220,7 @@ footer {
 
 .image-attribution {
   font-size: 0.75rem;
-  color: #666;
+  color: var(--text-color);
   margin-top: 0.5rem;
   text-align: center;
   padding: 0.5rem 0;
@@ -1213,7 +1254,7 @@ footer {
 }
 
 .image-attribution a {
-  color: #0066cc;
+  color: var(--primary-color);
   text-decoration: underline;
 }
 
@@ -1245,7 +1286,7 @@ footer {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  color: #0066cc;
+  color: var(--primary-color);
   font-size: 0.85rem;
   margin-left: 0.5rem;
   opacity: 0.9;
@@ -1261,10 +1302,18 @@ footer {
 
 .footnote-ref {
   text-decoration: none;
-  color: #0066cc;
+  color: var(--primary-color);
   font-size: 0.85em;
   position: relative;
   top: -0.3em;
+}
+
+.footnote-ref sup::before {
+  content: "[";
+}
+
+.footnote-ref sup::after {
+  content: "]";
 }
 
 @media (min-width: 768px) {
@@ -1277,14 +1326,15 @@ footer {
 
 /* Code blocks */
 pre {
-  background-color: #f5f5f5;
+  background-color: var(--code-bg);
   border-radius: 4px;
   padding: 0.75rem;
   overflow-x: auto;
   margin: 1rem 0 1.5rem;
   font-size: 0.85rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color);
   position: relative;
+  color: var(--text-color);
 }
 
 pre code {
@@ -1302,8 +1352,8 @@ pre code {
   top: 0.5rem;
   right: 0.5rem;
   padding: 0.3rem 0.5rem;
-  background-color: #f1f1f1;
-  border: 1px solid #ddd;
+  background-color: var(--badge-bg);
+  border: 1px solid var(--border-color);
   border-radius: 3px;
   font-size: 0.7rem;
   cursor: pointer;
@@ -1312,6 +1362,7 @@ pre code {
   gap: 0.25rem;
   opacity: 0.7;
   transition: opacity 0.2s;
+  color: var(--text-color);
 }
 
 .copy-code-button:hover {
@@ -1369,12 +1420,14 @@ pre code {
 }
 
 .blog-content pre {
-  background-color: #f7f7f7;
+  background-color: var(--code-bg);
   padding: 1rem;
   border-radius: 4px;
   overflow-x: auto;
   margin-bottom: 1.5rem;
   position: relative;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
 }
 
 .blog-content code {
@@ -1384,35 +1437,35 @@ pre code {
 }
 
 .blog-content blockquote {
-  border-left: 4px solid #0066cc;
+  border-left: 4px solid var(--primary-color);
   padding-left: 1rem;
   margin-left: 0;
   margin-right: 0;
   font-style: italic;
-  color: #555;
+  color: var(--text-color);
 }
 
 .copy-button {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
-  background-color: #eee;
+  background-color: var(--badge-bg);
   border: none;
   border-radius: 3px;
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
   cursor: pointer;
-  color: #333;
+  color: var(--text-color);
 }
 
 .copy-button:hover {
-  background-color: #ddd;
+  background-color: var(--border-color);
 }
 
 .copyable {
   position: relative;
   cursor: pointer;
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px dashed var(--border-color);
 }
 
 .copyable::after {
@@ -1429,7 +1482,7 @@ pre code {
 .share-icon {
   margin-left: 0.25rem;
   font-size: 0.8rem;
-  color: #666;
+  color: var(--text-color);
   cursor: pointer;
 }
 
@@ -1441,14 +1494,14 @@ pre code {
   display: block;
   width: 100%;
   height: 1px;
-  background-color: #eee;
+  background-color: var(--border-color);
   margin: 2.5rem 0;
 }
 
 .footnotes {
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
 }
 
 .footnotes h2 {
@@ -1480,7 +1533,7 @@ pre code {
 .blog-navigation {
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
 }
 
 .blog-nav-links {
@@ -1504,9 +1557,9 @@ pre code {
 .blog-components {
   margin: 2rem 0;
   padding: 1.5rem;
-  background-color: #f9f9f9;
+  background-color: var(--card-bg);
   border-radius: 4px;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
 }
 
 .blog-components h3 {
@@ -1553,6 +1606,87 @@ pre code {
   .project-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--text-color);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.theme-toggle[data-theme="dark"] .sun-icon {
+  display: inline-block;
+}
+
+.theme-toggle[data-theme="dark"] .moon-icon {
+  display: none;
+}
+
+.theme-toggle[data-theme="light"] .sun-icon {
+  display: none;
+}
+
+.theme-toggle[data-theme="light"] .moon-icon {
+  display: inline-block;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+th {
+  background-color: var(--badge-bg);
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+}
+
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+  background-color: var(--card-bg);
+}
+
+tr:hover {
+  background-color: var(--border-color);
 }
 
 /* Utility Classes */
