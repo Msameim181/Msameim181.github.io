@@ -1585,6 +1585,21 @@ pre code {
   gap: 1rem;
 }
 
+/* Blog tags styling */
+.blog-tags {
+  margin: 2rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+@media (min-width: 768px) {
+  .blog-tags {
+    margin: 2.5rem 0;
+    padding: 1.25rem 0;
+  }
+}
+
 .blog-nav-prev {
   text-align: left;
 }
