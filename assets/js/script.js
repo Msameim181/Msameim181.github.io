@@ -229,8 +229,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (content) {
       const text = content.textContent;
       const wordCount = text.split(/\s+/).length;
-      // Average reading speed: 200 words per minute
-      const readingTime = Math.ceil(wordCount / 200);
+      // Average reading speed: 100-200 words per minute
+      const readingTime = Math.ceil(wordCount / 100);
       readingTimeElement.textContent = readingTime;
     }
   }
@@ -242,8 +242,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (content) {
       const text = content.textContent;
       const wordCount = text.split(/\s+/).length;
-      // Average reading speed: 200 words per minute
-      const readingTime = Math.ceil(wordCount / 200);
+      // Average reading speed: 100-200 words per minute
+      const readingTime = Math.ceil(wordCount / 100);
       readingTimeSpan.textContent = `${readingTime} min read`;
     }
   }
