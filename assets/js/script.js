@@ -3,39 +3,40 @@
  * Contains interactive elements for the website
  */
 
+/**
+ * Sets the theme on all relevant elements
+ * @param {string} theme - The theme to apply ('dark' or 'light')
+ */
+function applyTheme(theme) {
+  // Apply to both document element and body for maximum compatibility
+  document.documentElement.setAttribute('data-theme', theme);
+  document.body.setAttribute('data-theme', theme);
+  
+  // Update the toggle button if it exists
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) themeToggle.setAttribute('data-theme', theme);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   // Dark Mode Toggle Functionality
   const themeToggle = document.querySelector('.theme-toggle');
-  const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
   
-  // Check for saved theme preference or use prefers-color-scheme
-  const savedTheme = localStorage.getItem('theme');
+  // Get the theme that was set in the head script
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
   
-  // Apply the correct theme
-  if (savedTheme === 'dark') {
-    document.body.setAttribute('data-theme', 'dark');
-    if (themeToggle) themeToggle.setAttribute('data-theme', 'dark');
-  } else if (savedTheme === 'light') {
-    document.body.setAttribute('data-theme', 'light');
-    if (themeToggle) themeToggle.setAttribute('data-theme', 'light');
-  } else if (prefersDarkMode) {
-    document.body.setAttribute('data-theme', 'dark');
-    if (themeToggle) themeToggle.setAttribute('data-theme', 'dark');
-    localStorage.setItem('theme', 'dark');
-  } else {
-    document.body.setAttribute('data-theme', 'light');
-    if (themeToggle) themeToggle.setAttribute('data-theme', 'light');
-    localStorage.setItem('theme', 'light');
-  }
+  // Apply theme consistently to all elements
+  applyTheme(currentTheme);
   
   // Theme Toggle Event Listener
   if (themeToggle) {
     themeToggle.addEventListener('click', function() {
-      const currentTheme = document.body.getAttribute('data-theme');
+      const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       
-      document.body.setAttribute('data-theme', newTheme);
-      themeToggle.setAttribute('data-theme', newTheme);
+      // Apply theme using our utility function
+      applyTheme(newTheme);
+      
+      // Save preference
       localStorage.setItem('theme', newTheme);
     });
   }
