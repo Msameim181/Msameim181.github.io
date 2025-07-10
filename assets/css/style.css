@@ -11,18 +11,20 @@
   --border-color: #eee;
   --primary-color: #c8054b;
   --primary-color-hover: #ad043f;
-  --primary-highlight: #c8054b;
   --secondary-color: #047a76;
-  --white: #fdfdfc;
-  --black: #111110;
-  --grey: #9198a1;
   --badge-bg: #f5f5f5;
   --badge-text: #555;
   --code-bg: #f7f7f7;
   --card-bg: #f9f9f9;
   --card-border: #eee;
+  --primary-highlight: #c8054b;
+  --white: #fdfdfc;
+  --black: #111110;
+  --grey: #9198a1;
 }
 
+/* Apply theme to both html and body elements to ensure full coverage */
+html[data-theme="dark"],
 [data-theme="dark"] {
   /* Dark Mode */
   --background-color: #111110;
