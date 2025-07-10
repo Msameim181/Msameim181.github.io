@@ -8,16 +8,16 @@
   --background-color: #fdfdfc;
   --text-color: #333;
   --header-color: #111110;
-  --border-color: #eee;
-  --primary-color: #c8054b;
-  --primary-color-hover: #ad043f;
+  --border-color: #ededed;
+  --primary-color: #d10437f3;
+  --primary-color-hover: #b0032ef3;
   --secondary-color: #047a76;
   --badge-bg: #f5f5f5;
   --badge-text: #555;
   --code-bg: #f7f7f7;
   --card-bg: #f9f9f9;
   --card-border: #eee;
-  --primary-highlight: #c8054b;
+  --primary-highlight: #d10437f3;
   --white: #fdfdfc;
   --black: #111110;
   --grey: #9198a1;
@@ -31,8 +31,8 @@ html[data-theme="dark"],
   --text-color: #9198a1;
   --header-color: #fdfdfc;
   --border-color: #31312e;
-  --primary-color: #c8054b;
-  --primary-color-hover: #ad043f;
+  --primary-color: #d10437f3;
+  --primary-color-hover: #b0032ef3;
   --secondary-color: #047a76;
   --badge-bg: #1d1d1c;
   --badge-text: #9198a1;
@@ -488,7 +488,8 @@ footer {
 .icon-linkedin:before,
 .icon-github:before,
 .icon-location:before,
-.icon-telegram:before {
+.icon-telegram:before,
+.icon-medium:before {
   content: "";
   display: inline-block;
   width: 16px;
@@ -504,11 +505,6 @@ footer {
   background-image: url('/assets/images/icons/email.svg');
 }
 
-/* .icon-location:before {
-  font-style: normal;
-  content: "📍";
-  margin-right: 0.15rem;
-} */
 .icon-location:before {
   background-image: url('/assets/images/icons/earth.svg');
 }
@@ -524,13 +520,17 @@ footer {
 .icon-telegram:before {
   background-image: url('/assets/images/icons/telegram.svg');
 }
+.icon-medium:before {
+  background-image: url('/assets/images/icons/medium.svg');
+}
 
 /* Dark mode SVG color adjustment */
 [data-theme="dark"] .icon-envelope:before,
 [data-theme="dark"] .icon-linkedin:before,
 [data-theme="dark"] .icon-github:before,
 [data-theme="dark"] .icon-location:before,
-[data-theme="dark"] .icon-telegram:before {
+[data-theme="dark"] .icon-telegram:before,
+[data-theme="dark"] .icon-medium:before {
   filter: invert(70%) sepia(19%) saturate(176%) hue-rotate(169deg) brightness(94%) contrast(92%);
 }
 
