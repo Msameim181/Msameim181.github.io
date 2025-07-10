@@ -37,6 +37,25 @@
   
   <title>Blog - Mohammad Mahdi Samei</title>
   <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <!-- Prevent theme flash by setting theme before DOM loads -->
+  <script>
+    // Set theme based on saved preference or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    let theme = 'light';
+    if (savedTheme === 'dark') {
+      theme = 'dark';
+    } else if (savedTheme === 'light') {
+      theme = 'light';
+    } else if (prefersDarkMode) {
+      theme = 'dark';
+    }
+    
+    // Apply theme to document early
+    document.documentElement.setAttribute('data-theme', theme);
+  </script>
 </head>
 <body>
   <header>
