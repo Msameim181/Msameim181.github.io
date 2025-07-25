@@ -41,6 +41,14 @@ html[data-theme="dark"],
   --card-border: #31312e;
 }
 
+/* Priestacy Font */
+@font-face {
+  font-family: 'Priestacy';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Priestacy'), url('/assets/fonts/calligraphy-font.woff') format('woff');
+}
+
 /* Reset and Base Styles */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -128,6 +136,8 @@ nav {
 
 .logo {
   text-align: center;
+  font-family: 'Priestacy', sans-serif;
+  font-size: 1.5rem;
 }
 
 nav ul {
