@@ -464,6 +464,13 @@ footer {
   margin-bottom: 0.75rem;
 }
 
+.sub-role-skills {
+  font-size: 0.8rem;
+  color: var(--grey);
+  margin-bottom: 0.75rem;
+  font-weight: 400;
+}
+
 .timeline {
   font-style: italic; 
   color: var(--text-color);

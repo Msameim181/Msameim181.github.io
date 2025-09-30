@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 contact_requests.db
 .DS_Store
+.vscode/settings.json
