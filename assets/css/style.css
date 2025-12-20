@@ -420,6 +420,12 @@ footer {
   margin-bottom: 1rem;
 }
 
+.job-project-meta {
+  color: var(--text-color);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
 .work-type {
   display: inline-block;
   font-weight: 500;
