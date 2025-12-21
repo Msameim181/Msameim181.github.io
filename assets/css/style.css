@@ -420,6 +420,12 @@ footer {
   margin-bottom: 1rem;
 }
 
+.job-project-meta {
+  color: var(--text-color);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
 .work-type {
   display: inline-block;
   font-weight: 500;
@@ -868,6 +874,11 @@ footer {
   margin-top: 0;
   margin-bottom: 0.75rem;
   line-height: 1.3;
+}
+.project-card h2 .availability{
+  color: var(--text-color);
+  font-style: italic;
+  font-size: 0.9rem;
 }
 
 .project-tags {
