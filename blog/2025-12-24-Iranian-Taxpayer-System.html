@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A deep dive into the Iranian Taxpayer System npm package: simplifying government tax API integration with secure cryptography, validation, and NestJS abstraction.">
+  <meta name="keywords" content="Iranian Taxpayer System, npm package, NestJS, JWS, JWE, cryptography, tax compliance, government API, TypeScript">
+  <meta name="author" content="Mohammad Mahdi Samei">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://msameim181.github.io/blog/2025-12-24-Iranian-Taxpayer-System.html">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/assets/css/all.min.css">
+  <script src="/assets/js/all.min.js" defer></script>
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://msameim181.github.io/blog/2025-12-24-Iranian-Taxpayer-System.html">
+  <meta property="og:title" content="Simplifying Iranian Taxpayer System Integration: Building a NestJS Package - Mohammad Mahdi Samei">
+  <meta property="og:description" content="A comprehensive guide on how I built a secure, TypeScript-based NestJS module for Iranian Tax Authority API integration.">
+  <meta property="og:image" content="https://msameim181.github.io/assets/images/blog/2025-12-24/iran-taxpayer-system-blog.jpg">
+  <meta property="article:published_time" content="2025-12-24T00:00:00Z">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://msameim181.github.io/blog/2025-12-24-Iranian-Taxpayer-System.html">
+  <meta property="twitter:title" content="Simplifying Iranian Taxpayer System Integration: Building a NestJS Package - Mohammad Mahdi Samei">
+  <meta property="twitter:description" content="A comprehensive guide on how I built a secure, TypeScript-based NestJS module for Iranian Tax Authority API integration.">
+  <meta property="twitter:image" content="https://msameim181.github.io/assets/images/blog/2025-12-24/iran-taxpayer-system-blog.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/favicon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <title>Simplifying Iranian Taxpayer System Integration with NestJS - Mohammad Mahdi Samei</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <!-- Prevent theme flash by setting theme before DOM loads -->
+  <script>
+    // Set theme based on saved preference or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    let theme = 'light';
+    if (savedTheme === 'dark') {
+      theme = 'dark';
+    } else if (savedTheme === 'light') {
+      theme = 'light';
+    } else if (prefersDarkMode) {
+      theme = 'dark';
+    }
+    
+    // Apply theme to document early
+    document.documentElement.setAttribute('data-theme', theme);
+  </script>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="/">Mohammad Mahdi Samei</a>
+      </div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/resume.html">Resume</a></li>
+        <li><a href="/projects.html">Projects</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <div class="blog-header-nav">
+      <a href="/blog/" class="all-posts-link">← All Posts</a>
+    </div>
+    
+    <article class="blog-post">
+      <header class="blog-post-header">
+        <h1>Simplifying Iranian Taxpayer System Integration: Building a Secure NestJS Package</h1>
+        <div class="blog-meta">
+          <time datetime="2025-12-24">December 24, 2025</time> • 
+          <span class="reading-time" title="Estimated reading time">13 min read</span> • 
+          <span class="copy-url" title="Copy URL to clipboard"><i class="fa-regular fa-copy"></i> Copy URL</span> • 
+          <span class="share-label">Share:</span>
+          <a href="https://twitter.com/intent/tweet?url=https://msameim181.github.io/blog/2025-12-24-Iranian-Taxpayer-System.html&text=Simplifying Iranian Taxpayer System Integration" target="_blank" rel="noopener noreferrer" title="Share on Twitter" class="share-link">Twitter</a>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://msameim181.github.io/blog/2025-12-24-Iranian-Taxpayer-System.html&title=Simplifying Iranian Taxpayer System Integration" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn" class="share-link">LinkedIn</a>
+        </div>
+      </header>
+
+      <div class="featured-image">
+        <img src="/assets/images/blog/2025-12-24/iran-taxpayer-system-blog.jpg"
+          alt="The Azadi Tower in Tehran">
+        <div class="image-attribution">Image: The Azadi Tower in Tehran | Photo by 
+          <a href="https://unsplash.com/photos/a-large-pyramid-shaped-building-with-azadi-tower-in-the-background-SdX48XyRJ08" target="_blank" rel="noopener noreferrer"></a>amin tn</a>
+           on Unsplash</div>
+      </div>
+      
+      <div class="blog-content">
+        <p>
+          Integrating with government APIs—especially financial ones like the Iranian Taxpayer System (سامانه مودیان)—is notoriously difficult. 
+          It involves complex cryptography, strict validation rules, and specific protocol requirements that few developers are prepared to handle. 
+          After spending weeks wrestling with JWS/JWE standards, documentation gaps, and edge cases, I built the 
+          <code>iranian-taxpayer-system</code> npm package to solve this problem once and for all.
+        </p>
+        
+        <h2>The Problem: Why Government APIs Are Hard</h2>
+        <p>
+          The Iranian Taxpayer System is designed to collect electronic invoices, standardize tax procedures, and reduce errors in tax reporting. 
+          It's a critical infrastructure for Iranian businesses. But from a developer's perspective, it's a nightmare.
+        </p>
+        <p>
+          Unlike typical REST APIs, this system requires:
+        </p>
+        <ul>
+          <li><strong>Multi-layered authentication:</strong> Challenge-response mechanisms using dynamic nonces</li>
+          <li><strong>Digital signatures (JWS):</strong> Every packet must be signed using the taxpayer's private key with RS256 algorithm</li>
+          <li><strong>Encryption (JWE):</strong> The signed packet must then be encrypted using the Tax Authority's public key</li>
+          <li><strong>Strict data formatting:</strong> Specific JSON structures, mandatory fields, and mathematical validation</li>
+          <li><strong>Precise timestamps:</strong> Strict UTC formatting to prevent server rejection</li>
+        </ul>
+        <p>
+          Most developers would attempt to implement this from scratch, leading to security vulnerabilities, failed submissions, 
+          and countless hours of debugging. I decided to build a package that abstracts away these complexities.
+        </p>
+        
+        <div class="audio-section">
+          <h3>🎧 Listen to the Documentation Overview</h3>
+          <p>Prefer listening? I've created an audio walkthrough of the complete documentation:</p>
+          <audio controls preload="metadata">
+            <source src="/assets/docs/Iran_s_Taxpayer_System_Cryptography_Requirements.mp3" type="audio/mpeg">
+            <source src="/assets/docs/Iran_s_Taxpayer_System_Cryptography_Requirements.m4a" type="audio/mp4">
+            Your browser does not support the audio element. <a href="/assets/docs/Iran_s_Taxpayer_System_Cryptography_Requirements.m4a" download>Download the audio file</a>.
+          </audio>
+        </div>
+        
+        <h2>How It Works: The Core Architecture</h2>
+        <p>
+          The <code>iranian-taxpayer-system</code> package is built on three pillars: security, validation, and orchestration. 
+          Let me walk you through each component.
+        </p>
+        
+        <h3>1. The Cryptography Layer (CryptoService)</h3>
+        <p>
+          The most critical component is secure handling of JWS/JWE protocols. This is where the magic—and the complexity—lives.
+        </p>
+        <p>
+          <strong>Digital Signatures (JWS):</strong> The service uses the JOSE library to sign payloads with RS256 (RSASSA-PKCS1-v1_5). 
+          It automatically injects the required headers:
+        </p>
+        <ul>
+          <li><code>x5c</code> – The X.509 certificate chain</li>
+          <li><code>sigT</code> – Signature timestamp in UTC format</li>
+          <li><code>crit</code> – Critical headers flag</li>
+        </ul>
+        <p>
+          <strong>Encryption (JWE):</strong> After signing, the payload is encrypted using:
+        </p>
+        <ul>
+          <li><strong>Key Encryption:</strong> RSA-OAEP-256 (encrypts the symmetric key)</li>
+          <li><strong>Content Encryption:</strong> AES-256-GCM (encrypts the actual data)</li>
+        </ul>
+        <p>
+          The package handles all of this automatically—just provide your private key and certificate, and it's handled behind the scenes.
+        </p>
+        
+        <h3>2. The Validation Engine (InvoiceValidatorService)</h3>
+        <p>
+          Instead of sending data and hoping it works, the package validates everything locally first. This prevents wasted API calls 
+          and cryptic error responses from the government server.
+        </p>
+        <p>
+          The validator checks:
+        </p>
+        <ul>
+          <li><strong>Mathematical accuracy:</strong> Verifies that (Quantity × Price) - Discount + VAT equals the total (down to 1 Rial precision)</li>
+          <li><strong>Pattern-specific rules:</strong> Different invoice types have different requirements. A "Gold Seller" invoice needs purity/weight, 
+            while an "Export" invoice needs customs license numbers.</li>
+          <li><strong>Data integrity:</strong> Validates 22-character Tax IDs, Economic Codes, valid dates, and mandatory field presence</li>
+          <li><strong>Format compliance:</strong> Ensures string lengths, field types, and allowable values match the RC_IITP.IS_V7.6 specification</li>
+        </ul>
+        
+        <h3>3. The Orchestration Layer (TaxpayerService)</h3>
+        <p>
+          This is the "brain" that ties everything together and manages the full lifecycle of invoice submission.
+        </p>
+        <ol>
+          <li><strong>Authentication:</strong> Requests a nonce from the server, signs it to generate an Auth Token, and manages token lifecycle</li>
+          <li><strong>Validation:</strong> Runs the invoice through the validator before proceeding</li>
+          <li><strong>Packaging:</strong> Takes validated invoice data, passes it through the crypto layer, and formats it for submission</li>
+          <li><strong>Submission:</strong> Sends the secure packet to the API and retrieves a unique Reference Number for tracking</li>
+          <li><strong>Inquiry:</strong> Provides methods to check invoice status by Reference ID, UID, or Tax ID</li>
+          <li><strong>Logging:</strong> Includes a custom HTTP interceptor that logs request durations, status codes, and errors for debugging</li>
+        </ol>
+        
+        <h2>Key Features That Matter</h2>
+        <p>
+          Here's why developers should use this package instead of building it themselves:
+        </p>
+        
+        <h3>🔒 Developer Experience (DX)</h3>
+        <p>
+          The package is a drop-in NestJS module. Just configure it once with your private key and certificate, 
+          and the cryptographic handshake is handled automatically.
+        </p>
+        
+        <h3>🎯 Type Safety</h3>
+        <p>
+          Built entirely in TypeScript with full type definitions (<code>InvoicePayload</code>, <code>InvoiceHeader</code>, 
+          <code>InvoiceBody</code>, etc.). Developers get IDE autocomplete and catch errors at compile time, not during testing.
+        </p>
+        
+        <h3>🛡️ Failsafe Validation</h3>
+        <p>
+          The built-in validator acts as a safety net, preventing "Bad Request" errors by catching logical and format mistakes 
+          before they leave your server. This is invaluable when dealing with government systems.
+        </p>
+        
+        <h3>📊 Support for All Invoice Patterns</h3>
+        <p>
+          The package supports specialized invoice patterns:
+        </p>
+        <ul>
+          <li>Pattern 1: Sales (فروش)</li>
+          <li>Gold & Jewelry Sales</li>
+          <li>Contracting Services</li>
+          <li>Exports</li>
+          <li>Currency Sales</li>
+          <li>And more...</li>
+        </ul>
+        
+        <h3>🔍 Full Invoice Lifecycle Management</h3>
+        <p>
+          Beyond submission, the package provides inquiry methods to:
+        </p>
+        <ul>
+          <li>Check invoice status by Reference ID</li>
+          <li>Look up invoices by UID (internal trace ID)</li>
+          <li>Verify taxpayer fiscal status</li>
+          <li>Check Article 6 limits</li>
+        </ul>
+        
+        <h2>How Clean Is the API?</h2>
+        <p>
+          Here's the beautiful part—despite all the complexity it hides, using the package is remarkably simple:
+        </p>
+        <pre><code>// 1. Inject the service
+constructor(private readonly taxpayerService: TaxpayerService) {}
+
+// 2. Create your invoice object
+const invoice: InvoicePayload = {
+  header: {
+    taxid: '1234567890123456789012',  // 22-character Tax ID
+    inty: InvoiceType.TYPE_1,          // Invoice type
+    inp: InvoicePattern.SALES,         // Sales pattern
+    indatim: new Date(),               // Date/time
+    // ... other fields
+  },
+  body: [{
+    sstid: 'GOODS_SERVICE_ID',         // Goods/service ID
+    am: 1,                             // Amount/quantity
+    fee: 1000000,                      // Unit price
+    // ... item details
+  }],
+};
+
+// 3. Submit!
+// The library handles validation, signing, encryption, and token management automatically.
+const result = await this.taxpayerService.submitInvoice(invoice);
+console.log(`Success! Reference ID: ${result.result[0].referenceNumber}`);
+        </code></pre>
+        <p>
+          All the JWS/JWE complexity, nonce fetching, validation, and authentication happen behind the scenes. 
+          Your code remains clean and focused on business logic.
+        </p>
+        
+        <h2>Technical Deep Dive</h2>
+        <p>
+          For the hardcore developers who want to understand what's happening under the hood:
+        </p>
+        
+        <h3>The Authentication Handshake</h3>
+        <p>
+          Before submitting invoices, the package performs a mandatory authentication flow:
+        </p>
+        <ol>
+          <li><strong>Get Nonce:</strong> Calls <code>GET /nonce</code> to retrieve a random, one-time-use challenge string</li>
+          <li><strong>Sign the Token:</strong> Creates a JWS using the nonce + clientId (Fiscal Memory ID), signed with the user's private key</li>
+          <li><strong>Exchange for Auth Token:</strong> Sends the signed token to get a Bearer Token for subsequent calls</li>
+        </ol>
+        
+        <h3>The Invoice Submission Pipeline</h3>
+        <p>
+          This is the core of the package's functionality:
+        </p>
+        <ol>
+          <li><strong>Data Structuring:</strong> Maps invoice data to the strict JSON schema (Header, Body, Payments)</li>
+          <li><strong>Pre-validation:</strong> Runs local validation checks before cryptography</li>
+          <li><strong>JWS Signing:</strong> Signs the payload with RS256, ensuring integrity</li>
+          <li><strong>JWE Encryption:</strong> Encrypts the signed payload using RSA-OAEP-256 and A256GCM</li>
+          <li><strong>Submission:</strong> Sends to <code>POST /invoice</code>, receiving a unique Reference Number</li>
+        </ol>
+        
+        <h3>Key Formats and Specifications</h3>
+        <p>
+          The package expects:
+        </p>
+        <ul>
+          <li><strong>Private Key:</strong> PKCS#8 format (PEM-encoded)</li>
+          <li><strong>Certificate:</strong> Standard X.509 format (.crt file)</li>
+          <li><strong>Timestamps:</strong> Strict UTC format: <code>yyyy-MM-dd'T'HH:mm:ss'Z'</code></li>
+          <li><strong>Algorithms:</strong> Signing (RS256), Key Encryption (RSA-OAEP-256), Content Encryption (A256GCM)</li>
+        </ul>
+
+        
+        <h2>Getting Started</h2>
+        <p>
+          The package is published on npm and easy to install:
+        </p>
+        <pre><code>npm install iranian-taxpayer-system</code></pre>
+        
+        <p>
+          Then configure it in your NestJS application:
+        </p>
+        <pre><code>// app.module.ts
+import { Module } from '@nestjs/common';
+import { TaxpayerModule } from 'iranian-taxpayer-system';
+
+@Module({
+  imports: [
+    TaxpayerModule.forRoot({
+      privateKey: process.env.TAX_PRIVATE_KEY,
+      certificate: process.env.TAX_CERTIFICATE,
+      clientId: process.env.TAX_CLIENT_ID,
+      baseUrl: 'https://tp.tax.gov.ir',
+    }),
+  ],
+})
+export class AppModule {}
+        </code></pre>
+        
+        <p>
+          For more details, check out the <a href="https://github.com/Msameim181/iranian-taxpayer-system" target="_blank" rel="noopener noreferrer">GitHub repository</a> 
+          and <a href="https://www.npmjs.com/package/iranian-taxpayer-system" target="_blank" rel="noopener noreferrer">npm package page</a>, and 
+          <a href="https://github.com/Msameim181/iranian-taxpayer-system-java-microservice" target="_blank" rel="noopener noreferrer">Dockerize Java Service</a>
+        </p>
+        
+        <h2>Conclusion</h2>
+        <p>
+          Building a bridge between Iranian businesses and the government's tax system is no trivial task. 
+          The technical barriers—cryptography, validation, API quirks—are real and significant.
+        </p>
+        <p>
+          By open-sourcing this package, I'm hoping to democratize access to this critical infrastructure. 
+          Whether you're building a simple POS system or a complex ERP, your developers shouldn't have to spend 
+          weeks wrestling with JWE encryption and government API documentation. They should focus on business logic.
+        </p>
+        <p>
+          If you're building tax compliance software in Iran, find me via contact link. 
+          And if you can work with Java and microservices, you can use the Java Version in the Government Website<a href="#footnote-1" class="footnote-ref" id="ref-1"><sup>1</sup></a>, or the Dockerize version in my github<a href="#footnote-2" class="footnote-ref" id="ref-2"><sup>2</sup></a>.
+        </p>
+        
+        <div class="blog-tags">
+          <div class="badge-container">
+            <span class="badge">NestJS</span>
+            <span class="badge">npm Package</span>
+            <span class="badge">Cryptography</span>
+            <span class="badge">Government APIs</span>
+            <span class="badge">TypeScript</span>
+            <span class="badge">Tax Compliance</span>
+            <span class="badge">Open Source</span>
+          </div>
+        </div>
+        
+        <div class="blog-separator">* * *</div>
+        
+        <section class="footnotes">
+          <h2>References and Additional Resources</h2>
+          <ol>
+            <li id="footnote-1">
+              <a href="https://www.intamedia.ir/Law-of-store-terminals-and-taxpayer-system#226989--------" id="ref-1" target="_blank" rel="noopener noreferrer">
+              Store terminals and payment system
+            </a><a href="#ref-1" class="footnote-backref" id="ref-1"><i class="fa-regular fa-arrow-turn-up"></i></a></li>
+            <li id="footnote-2">
+              <a href="https://github.com/Msameim181/iranian-taxpayer-system-java-microservice" id="ref-1" target="_blank" rel="noopener noreferrer">
+              Iranian Tax System SDK for Java 🇮🇷 (Dockerize and Ready to use)
+            </a><a href="#ref-2" class="footnote-backref" id="ref-2"><i class="fa-regular fa-arrow-turn-up"></i></a></li>
+            <li id="footnote-3">
+              <a href="http://www.intamedia.ir/" target="_blank" rel="noopener noreferrer">
+               Iran's Tax Affairs Organization
+            </a></li>
+            <li id="footnote-4">
+              <a href="/assets/docs/INTA_E-Invoice_API_Implementation.pdf" target="_blank" rel="noopener noreferrer">
+               INTA E-Invoice API Implementation (PDF)
+            </a> - Presentation Style Document.
+            </li>
+          </ol>
+        </section>
+      </div>
+    </article>
+    
+    <section class="blog-navigation">
+      <div class="blog-nav-links">
+        <div class="blog-nav-prev">
+          <a href="/blog/2025-07-01-deep-learning-in-medical.html"><i class="fa-regular fa-arrow-left"></i> Previous Post: Deep Learning for Medical Image Analysis</a>
+        </div>
+        <div class="blog-nav-home">
+          <!-- <a href="/blog/"><i class="fa-regular fa-arrow-left"></i> All Posts</a> -->
+        </div>
+        <div class="blog-nav-next">
+          <!-- <a href="/blog/next-post">Next Post:  <i class="fa-regular fa-arrow-right"></i></a> -->
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <div class="container">
+      <ul class="social-links">
+        <li><a href="mailto:9259samei@gmail.com" aria-label="Email">Email</a></li>
+        <li><a href="https://github.com/Msameim181/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a></li>
+        <li><a href="https://linkedin.com/in/msameim181/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a></li>
+      </ul>
+      <p class="text-center mt-1">
+        &copy; <span id="copyright-year">2020</span> Mohammad Mahdi Samei. All rights reserved.
+      </p>
+    </div>
+  </footer>
+  
+  <!-- Theme Toggle Button -->
+  <div class="theme-toggle" aria-label="Toggle dark/light mode">
+    <div class="theme-toggle-icon">
+      <span class="sun-icon">☀️</span>
+      <span class="moon-icon">🌙</span>
+    </div>
+  </div>
+  
+  <script src="/assets/js/script.js"></script>
+</body>
+</html>
