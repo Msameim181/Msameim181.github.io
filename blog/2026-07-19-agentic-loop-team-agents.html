@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Designing a pipeline that connects a product board to a team of Claude Code agents - subagents and agent teams - that build, test, and open a pull request without anyone at the keyboard.">
+  <meta name="keywords" content="agentic loop, Claude Code, agent teams, subagents, AI agents, automation, CI/CD, GitHub Actions, MCP, pull request automation">
+  <meta name="author" content="Mohammad Mahdi Samei">
+  <meta name="robots" content="index, follow">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://msameim181.github.io/blog/2026-07-19-agentic-loop-team-agents.html">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/assets/css/all.min.css">
+  <script src="/assets/js/all.min.js" defer></script>
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://msameim181.github.io/blog/2026-07-19-agentic-loop-team-agents.html">
+  <meta property="og:title" content="The Agentic Loop: Turning a Task Board Into a Full Dev Team - Mohammad Mahdi Samei">
+  <meta property="og:description" content="Designing a pipeline that connects a product board to a team of Claude Code agents - subagents and agent teams - that build, test, and open a pull request without anyone at the keyboard.">
+  <meta property="og:image" content="https://msameim181.github.io/assets/images/blog/2026-07-19/agentic-loop-intro.png">
+  <meta property="article:published_time" content="2026-07-19T12:00:00Z">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://msameim181.github.io/blog/2026-07-19-agentic-loop-team-agents.html">
+  <meta property="twitter:title" content="The Agentic Loop: Turning a Task Board Into a Full Dev Team - Mohammad Mahdi Samei">
+  <meta property="twitter:description" content="Designing a pipeline that connects a product board to a team of Claude Code agents - subagents and agent teams - that build, test, and open a pull request without anyone at the keyboard.">
+  <meta property="twitter:image" content="https://msameim181.github.io/assets/images/blog/2026-07-19/agentic-loop-intro.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/favicon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <title>The Agentic Loop: Turning a Task Board Into a Full Dev Team - Mohammad Mahdi Samei</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Prevent theme flash by setting theme before DOM loads -->
+  <script>
+    // Set theme based on saved preference or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    let theme = 'light';
+    if (savedTheme === 'dark') {
+      theme = 'dark';
+    } else if (savedTheme === 'light') {
+      theme = 'light';
+    } else if (prefersDarkMode) {
+      theme = 'dark';
+    }
+
+    // Apply theme to document early
+    document.documentElement.setAttribute('data-theme', theme);
+  </script>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="/">Mahdi Samei</a>
+      </div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/resume.html">Resume</a></li>
+        <li><a href="/projects.html">Projects</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="blog-header-nav">
+      <a href="/blog/" class="all-posts-link">← All Posts</a>
+    </div>
+
+    <article class="blog-post">
+      <header class="blog-post-header">
+        <h1>The Agentic Loop: Turning a Task Board Into a Full Dev Team</h1>
+        <div class="blog-meta">
+          <time datetime="2026-07-19">July 19, 2026</time> •
+          <span class="reading-time" title="Estimated reading time">9 min read</span> •
+          <span class="copy-url" title="Copy URL to clipboard"><i class="fa-regular fa-copy"></i> Copy URL</span> •
+          <span class="share-label">Share:</span>
+          <a href="https://twitter.com/intent/tweet?url=https://msameim181.github.io/blog/2026-07-19-agentic-loop-team-agents.html&text=The Agentic Loop: Turning a Task Board Into a Full Dev Team" target="_blank" rel="noopener noreferrer" title="Share on Twitter" class="share-link">Twitter</a>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://msameim181.github.io/blog/2026-07-19-agentic-loop-team-agents.html&title=The Agentic Loop: Turning a Task Board Into a Full Dev Team" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn" class="share-link">LinkedIn</a>
+        </div>
+      </header>
+
+      <div class="featured-image">
+        <img src="/assets/images/blog/2026-07-19/agentic-loop-intro.png" alt="Abstract illustration of a product board flowing through a cluster of connected agents to a merged pull request, with a faint loop closing the cycle">
+        <div class="image-attribution">Illustration: product board → agent team → merged PR (original)</div>
+      </div>
+
+      <div class="blog-content">
+        <p>
+          I keep coming back to one picture. You're looking at a task board — Notion, Jira, ClickUp, whatever your team uses. There's a ticket: "Add a <code>GET /invoices</code> endpoint with pagination and filtering." You hit a button labeled <strong>Develop</strong>. You close your laptop, go for a walk, and by the time you're back there's a pull request waiting for you — tested, documented, with a screenshot of the endpoint actually working — and the only thing left for you to do is press <strong>merge</strong>.
+        </p>
+        <p>
+          No terminal. No IDE. No standup about who's picking up the ticket. Just a board, a button, and a review.
+        </p>
+        <p>
+          That's the idea I want to lay out here: an <strong>agentic loop</strong> — a pipeline that connects your product management app to a host that can run coding agents, wired so that a team of specialized agents can pick up a task, build it, test it, and hand it back as a reviewable PR, without anyone sitting behind a keyboard while it happens. The diagram above lays out the whole shape; the rest of this post walks through it piece by piece.
+        </p>
+        <p>
+          I've been designing this on top of Claude Code and the Claude Agent SDK, and it turns out most of the pieces already exist — they're just not usually wired together this way. Let me walk through the idea, where I've had to correct my own assumptions along the way, and what the actual flow looks like.
+        </p>
+
+        <h2>The trigger: from ticket to sandbox</h2>
+        <p>
+          The first piece is boring by design, and that's the point. Your product management app doesn't need to understand agents — it just needs to fire a webhook when someone changes a ticket's status to "Ready for Agent" or clicks a custom button. That webhook hits a host: a CI runner, a self-hosted server, or — the option I like most for getting started — <a href="https://docs.claude.com/en/docs/claude-code/claude-code-on-the-web" target="_blank" rel="noopener noreferrer">Claude Code on the web</a>, which runs sessions on Anthropic-managed cloud infrastructure. Sessions persist even if you close the browser, you can configure the environment (Docker image, network access, setup scripts), and — this matters — your git credentials never actually sit inside the sandbox. Auth goes through a scoped proxy, so a compromised sandbox doesn't mean a compromised repo.
+        </p>
+        <p>
+          The host clones the repository, creates a new branch, and hands the ticket's description to an agent as its starting prompt. This is functionally identical to what already happens with <a href="https://docs.claude.com/en/docs/claude-code/github-actions" target="_blank" rel="noopener noreferrer">Claude Code's GitHub Actions integration</a>: mention <code>@claude</code> on an issue, and it clones the repo, does the work, and opens a PR. The same pattern exists for GitLab CI/CD. Your product board doesn't need a bespoke integration with Anthropic — it needs a webhook into a pipeline that already knows how to do this.
+        </p>
+        <p>
+          For teams that want more control than a hosted sandbox, the same loop runs through the <a href="https://docs.claude.com/en/docs/agent-sdk/overview" target="_blank" rel="noopener noreferrer">Agent SDK</a> in headless mode (<code>claude -p "&lt;task&gt;" --allowedTools ...</code>) on your own infrastructure, or through <a href="https://docs.claude.com/en/api/agent-sdk/hosting" target="_blank" rel="noopener noreferrer">Managed Agents</a>, a hosted REST API where Anthropic runs the agent and the sandbox and your app just streams events in and results out. Three ways to host the same loop, depending on how much infrastructure you want to own.
+        </p>
+        <p>
+          One correction I had to make to my own thinking here: the task description isn't a nice-to-have, it's the actual API contract between your product process and the agent team. A vague ticket produces a vague implementation — garbage in, garbage PR out. That's a big enough topic that it deserves its own article; for now, assume the ticket is rich: acceptance criteria, edge cases, examples, links to related code. Everything downstream depends on it.
+        </p>
+
+        <h2>Meet the team (they're all just files)</h2>
+        <p>
+          Here's the part that surprised me when I actually looked at how this works under the hood: a "team member" is not some elaborate piece of infrastructure. It's a markdown file.
+        </p>
+        <p>
+          Claude Code calls these <a href="https://docs.claude.com/en/docs/claude-code/sub-agents" target="_blank" rel="noopener noreferrer">subagents</a> — specialized assistants defined as a <code>.md</code> file with YAML frontmatter, living in <code>.claude/agents/</code>. Each one gets a name, a description of when to use it, a restricted set of tools, and a system prompt. That's your backend developer, your API designer, your QA engineer, your performance reviewer. Nothing more exotic than a well-written file and a role.
+        </p>
+        <p>
+          The advice I found in Anthropic's own docs, and now follow, is to keep these tight — a short, sharp description of identity and responsibility, not a novel. The temptation is to write a two-page personality bible for your "Senior Staff Backend Engineer." Resist it. Each subagent runs in its own context window, so a bloated prompt is pure overhead on every single task it touches.
+        </p>
+        <p>A realistic starter roster for a full-stack feature:</p>
+        <ul>
+          <li><strong>Architect</strong> — decides where new code belongs, keeps service boundaries clean.</li>
+          <li><strong>API designer</strong> — owns the interface: routes, schemas, status codes, versioning.</li>
+          <li><strong>Backend developer</strong> — writes the implementation.</li>
+          <li><strong>Frontend developer</strong> — builds the UI and wires it to the API.</li>
+          <li><strong>Tester / QA</strong> — writes and runs tests, checks edge cases against the ticket.</li>
+          <li><strong>Code reviewer</strong> — reads the diff for style, safety, and dumb mistakes.</li>
+          <li><strong>Performance engineer</strong> — checks for N+1 queries, unbounded loops, obvious hot paths.</li>
+        </ul>
+        <p>
+          Swap roles in or out based on what the ticket actually touches — a payments ticket might add a security reviewer, a pure backend job might drop the frontend developer entirely. The set isn't fixed — it's whatever roles your team would actually staff for the work.
+        </p>
+
+        <h2>The four things that make an agent good, not just present</h2>
+        <p>
+          This is where I had to untangle my own thinking, because I was originally lumping four different concepts into one blob called "agent config." They're actually distinct layers, and Claude Code treats them as such:
+        </p>
+        <p>
+          <strong>Subagents</strong> are <em>who</em> — identity, scope, and which tools they're allowed to touch. The architect probably shouldn't have <code>Bash</code> access to run arbitrary shell commands; the backend developer probably needs it.
+        </p>
+        <p>
+          <strong><a href="https://docs.claude.com/en/docs/claude-code/skills" target="_blank" rel="noopener noreferrer">Skills</a></strong> are <em>how</em> — packaged, reusable capabilities. A <code>SKILL.md</code> bundle with instructions and optional scripts, loaded dynamically only when relevant, so your context window isn't paying rent on a skill nobody's using this turn. "How to scaffold a new REST endpoint in our framework" is a skill. "How to run our test suite and interpret failures" is a skill.
+        </p>
+        <p>
+          <strong>Rules</strong> are the <em>house style</em> — your API design conventions, your entity-naming scheme, your error-handling patterns. In practice these live in a project-level <code>CLAUDE.md</code> (context every agent reads) plus, critically, <a href="https://docs.claude.com/en/docs/claude-code/hooks-guide" target="_blank" rel="noopener noreferrer">hooks</a> — shell commands that fire automatically at points in the agent's lifecycle. Format code after every edit. Block a commit if lint fails. Refuse a <code>Bash</code> command that touches <code>.env</code>. Rules you hope an agent follows are suggestions; rules enforced by a hook are guarantees.
+        </p>
+        <p>
+          <strong><a href="https://docs.claude.com/en/docs/mcp" target="_blank" rel="noopener noreferrer">MCP</a></strong> connections are <em>reach</em> — the Model Context Protocol is the open standard for wiring an agent to external tools: your ticket tracker, your database, your Git host, and — genuinely one of my favorite pieces of this whole design — a browser. The <a href="https://docs.claude.com/en/docs/claude-code/mcp" target="_blank" rel="noopener noreferrer">Playwright MCP server</a> lets an agent spin up a real browser, click through the feature it just built, and take a screenshot. That screenshot goes straight into the PR description. You stop reviewing a diff and start reviewing evidence that the thing works.
+        </p>
+        <p>
+          Four layers, four jobs: identity, capability, convention, reach. Confusing them is how you end up with a "backend developer" subagent whose system prompt is secretly trying to also be a linter, a skill, and a security policy.
+        </p>
+
+        <p>
+          Here's the whole loop end to end — board to merge — before we go on to how the team inside it actually talks to each other:
+        </p>
+
+        <figure style="margin: 1.5rem 0;">
+          <img src="/assets/images/blog/2026-07-19/agentic-loop-diagram.png" alt="Diagram of the agentic loop: a product board trigger flows through a host/CI runner, a team lead agent, a seven-role agent team with direct messaging, a verification loop, and out to a pull request for human review" style="width: 100%; height: auto; display: block; border-radius: 6px;">
+          <figcaption class="image-attribution">Diagram: the agentic loop, from product board to pull request (original)</figcaption>
+        </figure>
+
+        <h2>How the team actually talks: subagents vs. agent teams</h2>
+        <p>
+          I need to correct something here — not one of my own assumptions this time, but a gap in how I first described the tooling. My instinct was to model this as pure hub-and-spoke: a lead agent assigns work, each specialist does its piece in isolation, and everything reports back through the lead, full stop. That's accurate for <a href="https://docs.claude.com/en/docs/claude-code/sub-agents" target="_blank" rel="noopener noreferrer">subagents</a>, Claude Code's default delegation model — each one gets its own context window, but it only ever reports results back to whoever spawned it. Subagents don't talk to each other.
+        </p>
+        <p>
+          But there's a second, separate mode built for exactly the picture I originally had in mind: <a href="https://docs.claude.com/en/docs/claude-code/agent-teams" target="_blank" rel="noopener noreferrer">agent teams</a>. One session becomes the <strong>team lead</strong>; teammates spawn as full, independent Claude Code sessions, each with its own context window — and, this is the part I'd undersold, they can message each other directly through a mailbox (the <code>SendMessage</code> tool), not only report upward. They also share a task list: the lead can hand out work explicitly, or a teammate can finish its task and self-claim the next unblocked one straight off the shared board.
+        </p>
+        <p>
+          That maps much more closely onto "the backend developer hands off to the tester, who flags the reviewer" than hub-and-spoke does. It's still coordinated, not a free-for-all — there's a shared task list with real dependencies, and the lead can require any teammate to submit a plan for approval before it touches code — but teammates aren't forced to route every exchange back through the lead first.
+        </p>
+        <p>
+          Two catches before you build on this. First, agent teams are experimental and off by default — you turn them on with <code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1</code>, which is close to the literal "flip a setting to let the team communicate" switch I was picturing before I knew it already existed. Second, teams don't nest: teammates can't spawn their own teammates, only the lead manages the roster, and permission prompts still bubble up to the lead's session — a teammate can't approve its own risky action, and it can't relay a fake "approval" from another teammate to sneak one past the check either. There's also a quieter wrinkle: if you reuse a subagent definition as a teammate, its own <code>skills</code> and <code>mcpServers</code> frontmatter don't carry over — a teammate always loads skills and MCP servers from your project and user settings, same as any other session. So the project-level Rules and MCP wiring matter more, not less, once you're in team mode.
+        </p>
+        <p>
+          For a small ticket, plain subagents under one lead are cheaper and plenty. For the kind of small, self-contained feature team this pipeline assumes, agent teams is the mode that actually matches the picture: a lead spun up per ticket, with named teammates that message each other, claim tasks off a shared board, and only escalate up when something needs a decision.
+        </p>
+
+        <h2>Landing the work</h2>
+        <p>
+          Once the loop closes, the closing agent does the unglamorous but important stuff: a conventional commit message, a short doc update describing what changed and why, and a pull request — with that Playwright screenshot or short demo clip attached if the ticket touched anything visual. This part isn't hypothetical; it mirrors what Claude Code's GitHub Actions integration already does today: it can watch a PR after opening it, react to a failing CI check or a human review comment, and push a fix automatically. So "done" doesn't mean "opened a PR and walked away" — it means the agent stays attached to that PR through the first round of real feedback, human or automated, before disappearing.
+        </p>
+        <p>
+          Then the loop ends where it should: with a person. You read the PR, look at the screenshot, check the tests passed, and click merge. That's the one step I'm not trying to automate, and I don't think anyone should.
+        </p>
+
+        <h2>Where this gets hard</h2>
+        <p>
+          I don't want to sell this as a solved problem, because it isn't yet, and glossing over the sharp edges would make this a worse article, not a better one.
+        </p>
+        <p>
+          <strong>Cost scales with the size of the team.</strong> Every teammate is a full, independent session with its own context window and its own token bill — agent teams cost noticeably more than plain subagents, and it scales roughly linearly with headcount. A seven-agent team for a small ticket is expensive relative to just writing the endpoint yourself in twenty minutes. Anthropic's own guidance is to start with three to five teammates and size tasks so each one gets five or six items, not one. This pipeline earns its cost on work that's tedious, well-specified, and repetitive — not on every single ticket regardless of size.
+        </p>
+        <p>
+          <strong>Agent teams are still labeled experimental for a reason.</strong> They're off by default, there's no nesting a team inside a team, in-process teammates don't survive a <code>/resume</code>, and shutdown can lag while a teammate finishes its current step. None of that rules the approach out — it means you should treat today's version as a v1 that will keep changing under you, and keep a human checking in rather than walking away for a week.
+        </p>
+        <p>
+          <strong>The task description is the bottleneck, not the agents.</strong> I said this above and I'll say it again because it's the thing most people underestimate: a mediocre ticket produces a mediocre PR, agents or not. Getting from "a rough idea" to "a ticket rich enough to hand to a team of agents unsupervised" is a real design problem, and it's the subject of the next article.
+        </p>
+        <p>
+          <strong>Whichever mode you pick, the lead needs to be good, not hopeful.</strong> If the lead's task breakdown is bad, everything downstream inherits that mistake, faster than a human team would, because nobody's in the loop asking "wait, why are we doing it this way?" until the PR shows up.
+        </p>
+        <p>
+          <strong>Security is a first-class design constraint, not a footnote.</strong> Scoped credentials, sandboxed hosts, hooks that hard-block dangerous commands — these aren't optional hardening you add later. An unsupervised agent team with real repo access and real deploy paths is exactly the kind of system you want boring, boxed-in, and well-audited from day one.
+        </p>
+        <p>
+          None of that is a reason not to build it. It's a reason to build the guardrails at the same time as the pipeline, not after something goes wrong.
+        </p>
+
+        <h2>What's next</h2>
+        <p>
+          This piece was about the shape of the loop: trigger, host, team, PR, review. Two things I deliberately left out, because each deserves its own space: how to actually write task descriptions rich enough for a team of agents to run unsupervised, and how to build the product management layer that turns a raw product idea into a tree of epics and tickets in the first place — the thing that feeds this whole loop. Both are coming.
+        </p>
+        <p>
+          For now, the honest summary is this: the individual pieces — subagents, agent teams, skills, hooks, MCP, headless execution, hosted sandboxes — already exist and are documented, mostly built for a human sitting at a terminal. Wiring them into a loop that starts from a product board and ends at a merge button is a matter of assembly, careful role design, and guardrails. Not invention. Assembly is still work — but it's work you can start this week.
+        </p>
+
+        <div class="blog-tags">
+          <div class="badge-container">
+            <span class="badge">AI Agents</span>
+            <span class="badge">Claude Code</span>
+            <span class="badge">Automation</span>
+            <span class="badge">DevOps</span>
+            <span class="badge">CI/CD</span>
+          </div>
+        </div>
+
+        <div class="blog-separator">* * *</div>
+
+        <section class="footnotes">
+          <h2>Further reading</h2>
+          <ul>
+            <li><a href="https://docs.claude.com/en/docs/claude-code/sub-agents" target="_blank" rel="noopener noreferrer">Create custom subagents</a> — Claude Code Docs</li>
+            <li><a href="https://docs.claude.com/en/docs/claude-code/agent-teams" target="_blank" rel="noopener noreferrer">Orchestrate teams of Claude Code sessions</a> — Claude Code Docs</li>
+            <li><a href="https://docs.claude.com/en/docs/claude-code/skills" target="_blank" rel="noopener noreferrer">Extend Claude with skills</a> — Claude Code Docs</li>
+            <li><a href="https://docs.claude.com/en/docs/claude-code/hooks-guide" target="_blank" rel="noopener noreferrer">Automate actions with hooks</a> — Claude Code Docs</li>
+            <li><a href="https://docs.claude.com/en/docs/mcp" target="_blank" rel="noopener noreferrer">What is the Model Context Protocol (MCP)?</a> — Claude Docs</li>
+            <li><a href="https://docs.claude.com/en/docs/claude-code/github-actions" target="_blank" rel="noopener noreferrer">Claude Code GitHub Actions</a> — Claude Code Docs</li>
+            <li><a href="https://docs.claude.com/en/docs/claude-code/claude-code-on-the-web" target="_blank" rel="noopener noreferrer">Use Claude Code on the web</a> — Claude Code Docs</li>
+            <li><a href="https://docs.claude.com/en/docs/agent-sdk/overview" target="_blank" rel="noopener noreferrer">Agent SDK overview</a> — Claude Docs</li>
+            <li><a href="https://docs.claude.com/en/api/agent-sdk/hosting" target="_blank" rel="noopener noreferrer">Hosting the Agent SDK</a> — Claude API Docs</li>
+          </ul>
+        </section>
+      </div>
+    </article>
+
+    <section class="blog-navigation">
+      <div class="blog-nav-links">
+        <div class="blog-nav-prev">
+          <a href="/blog/2025-12-24-Iranian-Taxpayer-System.html"><i class="fa-regular fa-arrow-left"></i> Previous Post: Simplifying Iranian Taxpayer System Integration: Building a Secure NestJS Package</a>
+        </div>
+        <div class="blog-nav-home">
+          <!-- <a href="/blog/"><i class="fa-regular fa-arrow-left"></i> All Posts</a> -->
+        </div>
+        <div class="blog-nav-next">
+          <!-- <a href="/blog/next-post">Next Post:  <i class="fa-regular fa-arrow-right"></i></a> -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <ul class="social-links">
+        <li><a href="mailto:9259samei@gmail.com" aria-label="Email">Email</a></li>
+        <li><a href="https://github.com/Msameim181/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a></li>
+        <li><a href="https://linkedin.com/in/msameim181/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a></li>
+      </ul>
+      <p class="text-center mt-1">
+        &copy; <span id="copyright-year">2020</span> Mohammad Mahdi Samei. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Theme Toggle Button -->
+  <div class="theme-toggle" aria-label="Toggle dark/light mode">
+    <div class="theme-toggle-icon">
+      <span class="sun-icon">☀️</span>
+      <span class="moon-icon">🌙</span>
+    </div>
+  </div>
+
+  <script src="/assets/js/script.js"></script>
+</body>
+</html>
